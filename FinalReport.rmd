@@ -1,7 +1,7 @@
 ---
 title: "Abacavirinol"
-author: "Put your name here!"
-date: "put the date here"
+author: "Nathlyne Golden Cobb!"
+date: "December 3, 2018"
 output: html_document
 ---
 
@@ -9,7 +9,12 @@ output: html_document
 require(tidyverse)
 require(tigerstats)
 abac <-read.csv(file="abacavirinol.csv",header=TRUE)
+Female <- filter(abac,sex=="F")
+Male <- filter(abac,sex=="M")
+Druggies <- filter(abac,Ivdrug=="user")
+LGBT <- filter(abac,LBGT=="yes")
 ```
+
 
 # Introduction
 
@@ -30,16 +35,222 @@ A new  preventative aides (abacavirinol) is under test in clinical trials. Analy
 ### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question. Bottom line is to explain the features of the graph that are relevant to conforming or departing to what is expected by your null hypothesis !-->
+```{r}
+results <- xtabs(~infected+treatment,data=abac)
+barchartGC(results,type = "percent")
+```
+
+The placebo seems to been taken more than the drugs. As you can see we have 59% plocebo with aids and 50% without aids. The drugs was taken 40% with aids and 49% without aids.
 
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+
+
+```{r}
+colPerc(results)
+rowPerc(results)
+```
+There was treament for infected patients with aids that took the drugs with a 4.04% and placebo 5.54%. Without aids had drugs at 95.96% and placebo at 94.46%.
 
 ## Inferential Results
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
 
+
+```{r}
+chisqtestGC(results, graph = TRUE)
+```
+Using variables to get statistics on Counts by null and contributions to the chi-square statistic. The null had infected with aids using drugs at 115.45% and placebo at 121.55%. Without aids at 2284.55% and without drugs at 2405.45%. The contributions to the chi-square statistic infected with aids and drugs at 2.95% and without drugs and without aids at 2.80%. Last without being infected with aids but with drugs at 0.15% and with being infected with aids and with placebo at 0.14%.
+
+
+The chi-square curve, df=1 and the shaed area is 0.0168. The density is passed 2.0 % and the chi_square_statistic is 5.71%.
+
+
+```{r}
+fisher.test(results)
+```
+The alternative hypothesis has true odds ratio that is not equal to one. P-value has results of 0.01634%. Sample estimate odd ratio at 0.7181794%.
+
+
+
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+I found that patients with or without aids seemed to be taken more of the placebo than the drugs slightly. Which have me asking more questions about did the patients taken the placebo feel better or worse after taken the treatment. Same with the patients taken the drugs, did they feel better or worse.
+
+
+
+#Female
+
+#Results
+
+## Descriptive Results
+
+### Graphical Descriptive Results
+```{r}
+results <- xtabs(~infected+treatment,data=Female)
+barchartGC(results,type = "percent")
+```
+
+This barchart shows the results of just women with aids and without aids taking drugs and placebos.The drugs with aids has 59% and placebo and aids at 49%. Also shows without aids but with drugs at 38% and without aids and with placebo at 51%.
+
+### Numerical Descriptive Results
+```{r}
+colPerc(results)
+rowPerc(results)
+```
+The treatment with infected aids patients and drugs is at 59.30% and infected aids patients with placebo is at 40.70%. The treatment not infected with aids but have taken the drugs are at 48.47% and without aids and with placebo are at 51.53%.
+
+## Inferential Results
+
+```{r}
+chisqtestGC(results, graph = TRUE)
+```
+Using variables to get statistics on Counts by null and contributions to the chi-square statistic. The null had infected with aids using drugs at 41.99% and placebo at 44.11%. Without aids at 1246.01% and without drugs at 1305.99%. The contributions to the chi-square statistic infected with aids and drugs at 1.93% and without drugs and without aids at 1.84%. Last without being infected with aids but with drugs at 0.07% and with being infected with aids and with placebo at 0.06%.
+
+The Curve results is chi-square curve, df=1 and shaded area is 0.062. The density is over 2.0% and ch_square_statistic is at 3.48%.
+
+```{r}
+fisher.test(results)
+```
+Fisher's Exact test for count data is p-value= 0.04911 and alternative hypothesis: true odds ratio is not equal to 1% but 95% confidence interval: 0.980258% and 2.472003. Sample estimates: odds ratio is 1.548757%.
+
+# Discussion and Conclusion
+
+For women again the results is not that big of a difference. Which makes me want to ask questions on how the treaments went for the women with aids and without. Also the women without aids and using the placebo. Did they feel better or worse?
+
+#Male
+
+#Results
+
+## Descriptive Results
+
+### Graphical Descriptive Results
+
+```{r}
+results <- xtabs(~infected+treatment,data=Male)
+barchartGC(results,type = "percent")
+```
+
+The barchart for men with aids and with drugs is at 25% and with aids and placebo is at 45%. The barchart without having aids and with drugs is 68% and without having aids and with placebo is 45%.
+
+### Numerical Descriptive Results
+
+```{r}
+colPerc(results)
+rowPerc(results)
+```
+
+For the treament of men with aids and with drugs is 30.46% and with aids and with placebo is 69.54%. The treatment without drugs and aids is 49.86% and the treatment without drugs and with placebo is 50.14%. 
+
+## Inferential Results
+```{r}
+chisqtestGC(results, graph = TRUE)
+```
+
+Using variables to get statistics on Counts by null and contributions to the chi-square statistic. The null had infected with aids using drugs at 73.36% and placebo at 77.64%. Without aids at 1038.64% and without drugs at 1099.56%. The contributions to the chi-square statistic infected with aids and drugs at 10.20% and without drugs and without aids at 9.64%. Last without being infected with aids but with drugs at 0.72% and with being infected with aids and with placebo at 0.68%.
+
+This graph for the Chi-Square Curve, df=1 and shaded area = 0. The density is over 1.5% and the chi_square_statistic is at 20.47%.
+
+```{r}
+fisher.test(results)
+```
+The Fisher's Exact Test for count data have results of p-value = 0.000004352% and the alternative hypothesis: true odds ratio is not equal to 1% and 95% confidence interval: 0.3013634% 0.6360948%, sample estimates: odds ratio 0.4407101%.
+
+# Discussion and Conclusion
+
+The results for men with aids and with placebo is higher than men without aids and with placebo.However, the results without drugs and with placebo are the same.
+
+#Druggies 
+
+#Results
+
+## Descriptive Results
+
+### Graphical Descriptive Results
+
+```{r}
+results <- xtabs(~infected+treatment,data=Druggies)
+barchartGC(results,type = "percent")
+```
+
+The barchart shows that druggies with aids and taking the drugs is at 25%, and druggies with aids and taking placebo is at 75%. Also showing that druggies without aids and drugs is at 45%, and druggies without aids and placebo is at 55%.
+
+### Numerical Descriptive Results
+
+```{r}
+colPerc(results)
+rowPerc(results)
+```
+The treament infected with aids and taking drugs is 25.64%, with aids and taking the placebo is 74.36%. While the treament without aids and taking drugs is 45.66%, without aids and placebo is 54.34%.
+
+
+## Inferential Results
+
+```{r}
+chisqtestGC(results, graph = TRUE)
+```
+
+Using variables to get statistics on Counts by null and contributions to the chi-square statistic. The null had infected with aids using drugs at 17.38% and placebo at 21.62%. Without aids at 297.62% and without drugs at 370.38%. The contributions to the chi-square statistic infected with aids and drugs at 3.13% and without drugs and without aids at 2.52%. Last without being infected with aids but with drugs at 0.18% and with being infected with aids and with placebo at 0.15%.
+
+The chi-square curve, df=1 and shaded area = 0.0227. The density is over 2.0% and the chi_square_statistic is 5.19%.
+
+```{r}
+fisher.test(results)
+```
+
+The Fisher's Exact test is p-value = 0.01929, alternative hypthesis: true odds ratio is not equal to 1% and 95% confidence interval: 0.1757111 0.8844152.Sample estimates: odds ratio 0.418953.
+
+# Discussion and Conclusion
+
+I found that the druggies with aids and with drugs were far lower and without aids with drugs are slightly lower.Higher with druggies with aids and placebo and slightly higher with druggies without aids with placebo.
+
+
+#LGBT 
+
+#Results
+
+## Descriptive Results
+
+### Graphical Descriptive Results
+
+```{r}
+results <- xtabs(~infected+treatment,data=LGBT)
+barchartGC(results,type = "percent")
+```
+
+The barchart shows that the LGBT with aids and with drugs is 68% and LGBT without aids and without drugs is 31%. The barchart also shows that the LGBT with aids and with placebo is 35% and LGBT without aids and with placebo is 49%.
+
+### Numerical Descriptive Results
+
+```{r}
+colPerc(results)
+rowPerc(results)
+```
+The treatment with aids and with drugs is 68.97% and with aids and placebo is 31.03%. The treatment without aids and with drugs is 50.17%, and without aids and with placebo is 49.83%.
+
+## Inferential Results
+
+```{r}
+chisqtestGC(results, graph = TRUE)
+```
+Using variables to get statistics on Counts by null and contributions to the chi-square statistic. The null had infected with aids using drugs at 14.81% and placebo at 14.19%. Without aids at 292.19% and without drugs at 279.81%. The contributions to the chi-square statistic infected with aids and drugs at 1.82% and without drugs and without aids at 1.90%. Last without being infected with aids but with drugs at 0.09% and with being infected with aids and with placebo at 0.10%.
+
+The chi-square curve, df=1 and shaded area = 0.0743. The density is over 2.0% and chi_square_statistic is 3.18%.
+
+```{r}
+fisher.test(results)
+```
+Fisher's Exact Test results is p-value = 0.05698 and alternative hypthesis: true odds ratio is not equal to 1% and 95% confindence internal: 0.9400645 5.595109. Sample estimates: odds ratio 2.203969.
+
+# Discussion and Conclusion
+
+I see in this study case that the LGBT have a higher percentage with aids and with drugs, also without aids and placebo was slightly higher. Then, the study case with aids and placebo was far lower, also without aids and placebo was closer to without aids and placebo.
+
+
+
+
+
