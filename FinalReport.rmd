@@ -1,6 +1,6 @@
 ---
 title: "Abacavirinol"
-author: "Nathlyne Golden Cobb!"
+author: "Nathalyne Golden Cobb!"
 date: "December 3, 2018"
 output: html_document
 ---
